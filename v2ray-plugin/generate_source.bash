@@ -15,3 +15,4 @@ else
     exit 1
 fi
 
+spectool -g -R v2ray-plugin.spec
