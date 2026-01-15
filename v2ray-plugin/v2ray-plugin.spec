@@ -46,7 +46,7 @@ Summary:        A SIP003 plugin based on v2ray for shadowsocks
 
 License:        MIT License
 URL:            https://github.com/shadowsocks/v2ray-plugin
-Source0:        dist.zip
+Source0:        dist.tar.gz
 Source1:        https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-386-v1.3.2.tar.gz
 Source2:        https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz
 Source3:        https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-arm-v1.3.2.tar.gz
@@ -82,6 +82,10 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p %{buildroot}/etc/shadowsocks-libev
 install -m 644 %{_builddir}/%{buildsubdir}/dist/etc/config-v2ray-plugin.json %{buildroot}%{_sysconfdir}/shadowsocks-libev/
+
+mkdir -p %{buildroot}%{_sysconfdir}/nginx/conf.d
+install -m 644 %{_builddir}/%{buildsubdir}/dist/etc/v2ray-plugin-proxy.conf %{buildroot}%{_sysconfdir}/nginx/conf.d/
+
 mkdir -p %{buildroot}%{_bindir}
 install -m 755 %{_builddir}/%{buildsubdir}/v2ray-plugin %{buildroot}%{_bindir}/v2ray-plugin
 
@@ -97,6 +101,7 @@ install -m 644 %{_builddir}/%{buildsubdir}/dist/systemd/shadowsocks-libev-v2ray-
 %files
 %{_bindir}/v2ray-plugin
 %{_sysconfdir}/shadowsocks-libev/config-v2ray-plugin.json
+%{_sysconfdir}/nginx/conf.d/*
 %if ! 0%{?use_systemd}
 %{_initddir}/*
 %else
