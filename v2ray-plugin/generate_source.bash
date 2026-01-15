@@ -16,3 +16,5 @@ else
 fi
 
 spectool -g -R v2ray-plugin.spec
+
+rpmbuild -bs v2ray-plugin.spec
